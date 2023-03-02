@@ -1,16 +1,13 @@
 <?php
-include ("../config/DBConnection.php");
-include ("../models/Article.php");
+include ("configs/DBConnection.php");
+include ("models/Article.php");
 
 class ArticleService {
     public function getAllArticles() {
-        $dbConn = new DbConnection();
+        $dbConn = new DBConnection();
         $conn = $dbConn->getConnection();
 
-        $sql = "SELECT *
-        FROM baiviet
-        INNER JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia
-        INNER JOIN theloai ON theloai.ma_tloai = baiviet.ma_tloai";
+        $sql = "SELECT * FROM baiviet";
         $stmt = $conn->query($sql);
 
         $articles = [];

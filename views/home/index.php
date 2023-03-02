@@ -1,6 +1,5 @@
 <?php
-include("../includes/header.php");
-include("../../configs/DBConnection.php");
+require ("../includes/header.php");
 ?>
 
 <div id="carouselExampleIndicators" class="carousel slide">
@@ -34,14 +33,14 @@ include("../../configs/DBConnection.php");
 
     <div class="row">
         <?php
-        foreach($articles as $article => $value) {
+        foreach($articles as $article) {
         ?>
         <div class="col-sm-3">
             <div class="card mb-2" style="width: 100%; height: 250px;">
-                <img src="<?php echo $value->getHinhanh() ?>" class="card-img-top" alt="...">
+                <img src="<?= $article->getHinhanh() ?>" class="card-img-top" alt="..."><?php echo $article ?>
                 <div class="card-body">
                     <h5 class="card-title text-center">
-                        <a href="./detail.php?tieude=<?php echo $value->getTieude() ?>" class="text-decoration-none"><?php echo $value->getTieude() ?></a>
+                        <a href="./detail.php?tieude=<?= $article->getTieude() ?>" class="text-decoration-none"><?= $article->getTieude() ?></a>
                     </h5>
                 </div>
             </div>
@@ -49,7 +48,6 @@ include("../../configs/DBConnection.php");
         <?php
             }
         ?>
-
     </div>
 </main>
 <?php

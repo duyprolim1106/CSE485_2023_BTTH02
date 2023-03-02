@@ -1,9 +1,10 @@
 <?php
-include("../services/ArticleService.php");
+include("services/ArticleService.php");
 class HomeController {
     public function index() {
         $articleService = new ArticleService();
         $articles = $articleService->getAllArticles();
-        include("../views/home/index.php");
+        echo $articles;
+        include("views/home/index.php");
     }
 }
