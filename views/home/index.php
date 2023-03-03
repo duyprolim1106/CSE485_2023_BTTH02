@@ -38,7 +38,7 @@ include ("views/includes/header.php");
                 <img src="<?= $article->getHinhanh() ?>" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title text-center">
-                        <a href="./detail.php" class="text-decoration-none"><?= $article->getTieude() ?></a>
+                        <a href="index.php/controller=detail&ma_bviet=<?= $article->getMaBviet() ?>" class="text-decoration-none"><?= $article->getTieude() ?></a>
                     </h5>
                 </div>
             </div>
