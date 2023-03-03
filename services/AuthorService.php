@@ -1,6 +1,6 @@
 <?php
-include ("../config/DBConnection.php");
-include ("../models/Article.php");
+include ("configs/DBConnection.php");
+include ("models/Article.php");
     class AuthorService{
 
         public function getAllAuthors(){
