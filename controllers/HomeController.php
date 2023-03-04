@@ -13,4 +13,8 @@ class HomeController {
         $detailArticle = $articleService->getDetailArticle($ma_bviet);
         include("views/home/detail.php");   
     }
+
+    public function login() {
+        include("views/home/login.php");
+    }
 }

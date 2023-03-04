@@ -1,4 +1,5 @@
 <?php
+$title = 'Music for Life';
 include ("views/includes/header.php");
 ?>
 
