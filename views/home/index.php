@@ -38,7 +38,7 @@ include ("views/includes/header.php");
                 <img src="<?= $article->getHinhanh() ?>" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title text-center">
-                        <a href="index.php/controller=detail&ma_bviet=<?= $article->getMaBviet() ?>" class="text-decoration-none"><?= $article->getTieude() ?></a>
+                        <a href="index.php?controller=home&action=detail&ma_bviet=<?php echo $article->getMaBviet(); ?>" class="text-decoration-none"><?= $article->getTieude() ?></a>
                     </h5>
                 </div>
             </div>
@@ -47,5 +47,5 @@ include ("views/includes/header.php");
     </div>
 </main>
 <?php
-include("../includes/footer.php");
+include("views/includes/footer.php");
 ?>
