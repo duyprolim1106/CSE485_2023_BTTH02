@@ -1,5 +1,5 @@
 <?php
-$title = 'Login';
+$title = 'Đăng nhập';
 $login_css = 'style_login';
 include("views/includes/header.php")
 ?>
@@ -15,7 +15,7 @@ include("views/includes/header.php")
                 </div>
             </div>
             <div class="card-body">
-                <form action="login.php" method="POST">
+                <form action="index.php?controller=home&action=loginWithAcc" method="POST">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
                         <input type="text" class="form-control" placeholder="user_name" name="user_name">
