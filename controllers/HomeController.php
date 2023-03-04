@@ -6,4 +6,15 @@ class HomeController {
         $articles = $articleService->getAllArticles();
         include("views/home/index.php");
     }
+
+    public function detail() {
+        $ma_bviet = $_GET['ma_bviet'];
+        $articleService = new ArticleService();
+        $detailArticle = $articleService->getDetailArticle($ma_bviet);
+        include("views/home/detail.php");   
+    }
+
+    public function login() {
+        include("views/home/login.php");
+    }
 }

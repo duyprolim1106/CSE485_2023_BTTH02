@@ -1,4 +1,5 @@
 <?php
+$title = 'Music for Life';
 include ("views/includes/header.php");
 ?>
 
@@ -38,7 +39,7 @@ include ("views/includes/header.php");
                 <img src="<?= $article->getHinhanh() ?>" class="card-img-top" alt="..." style="height:200px"> 
                 <div class="card-body">
                     <h5 class="card-title text-center">
-                        <a href="index.php/controller=detail&ma_bviet=<?= $article->getMaBviet() ?>" class="text-decoration-none"><?= $article->getTieude() ?></a>
+                        <a href="index.php?controller=home&action=detail&ma_bviet=<?php echo $article->getMaBviet(); ?>" class="text-decoration-none"><?= $article->getTieude() ?></a>
                     </h5>
                 </div>
             </div>
