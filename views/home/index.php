@@ -1,6 +1,6 @@
 <?php
-include("../includes/header.php");
-include("../../configs/DBConnection.php");
+$title = 'Music for Life';
+include ("views/includes/header.php");
 ?>
 
 <div id="carouselExampleIndicators" class="carousel slide">
@@ -11,13 +11,13 @@ include("../../configs/DBConnection.php");
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="../../assets/images/slideshow/slide01.jpg" class="d-block w-100" alt="...">
+            <img src="assets/images/slideshow/slide01.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="../../assets/images/slideshow/slide02.jpg" class="d-block w-100" alt="...">
+            <img src="assets/images/slideshow/slide02.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="../../assets/images/slideshow/slide03.jpg" class="d-block w-100" alt="...">
+            <img src="assets/images/slideshow/slide03.jpg" class="d-block w-100" alt="...">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -33,25 +33,20 @@ include("../../configs/DBConnection.php");
     <h3 class="text-center text-uppercase mb-3 text-primary">TOP bài hát yêu thích</h3>
 
     <div class="row">
-        <?php
-        foreach($articles as $article => $value) {
-        ?>
+        <?php foreach($articles as $article) { ?>
         <div class="col-sm-3">
-            <div class="card mb-2" style="width: 100%; height: 250px;">
-                <img src="<?php echo $value->getHinhanh() ?>" class="card-img-top" alt="...">
+            <div class="card mb-2" style="width: 100%; margin-top: 30px;">
+                <img src="<?= $article->getHinhanh() ?>" class="card-img-top" alt="..." style="height:200px"> 
                 <div class="card-body">
                     <h5 class="card-title text-center">
-                        <a href="./detail.php?tieude=<?php echo $value->getTieude() ?>" class="text-decoration-none"><?php echo $value->getTieude() ?></a>
+                        <a href="index.php?controller=home&action=detail&ma_bviet=<?php echo $article->getMaBviet(); ?>" class="text-decoration-none"><?= $article->getTieude() ?></a>
                     </h5>
                 </div>
             </div>
         </div>
-        <?php
-            }
-        ?>
-
+        <?php } ?>
     </div>
 </main>
 <?php
-include("../includes/footer.php");
+include("views/includes/footer.php");
 ?>
