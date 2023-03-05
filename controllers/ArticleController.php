@@ -7,13 +7,13 @@ class ArticleController
         if (isset($_GET['act'])) {
             if ($_GET['act'] == 'edit') {
                 $articleService = new ArticleService();
-                $authorService = new AuthorService();
-                $authorList = $authorService->getAllAuthors();
                 $article = $articleService->getDetailArticle('$ma_bviet');
+                    $authorService = new AuthorService();
+                    $authorList = $authorService->getAuthors();
                 include("views/article/edit_article.php");
             } else if ($_GET['act'] == 'add') {
                 $authorService = new AuthorService();
-                $authorList = $authorService->getAllAuthors();
+                $authorList = $authorService->getAuthors();
                 include("views/article/add_article.php");
             }
         } else {

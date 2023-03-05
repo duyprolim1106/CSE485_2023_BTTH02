@@ -36,7 +36,7 @@ include("views/includes/header_admin.php");
                         <?php
                             foreach($authorList as $author) {
                         ?>
-                        <option value="<?= $author['ma_tgia'] ?>"><?= $author['ten_tgia'] ?></option>
+                        <option value="<?= $author->getMaTgia() ?>"><?= $author->getTenTgia() ?></option>
                         <?php
                         }
                         ?>

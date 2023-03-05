@@ -17,9 +17,9 @@ class ArticleService
             $article = new Article($row['ma_bviet'], $row['tieude'], $row['ten_bhat'], $row['ma_tloai'], $row['tomtat'], $row['noidung'], $row['ma_tgia'], $row['ngayviet'], $row['hinhanh']);
             array_push($articles, $article);
         }
-        $dbConn->closeConnection();
-
+        
         return $articles;
+        $dbConn->closeConnection();
     }
 
     public function getDetailArticle($ma_bviet)

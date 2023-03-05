@@ -40,7 +40,6 @@ class AuthorService
             return $author;
         }
         $dbConn->closeConnection();
-        return $authors;
     }
     public function addAuthor()
     {
