@@ -20,7 +20,10 @@ include("views/includes/header_admin.php");
 
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatName">Quyền hạn</span>
-                    <input type="text" class="form-control" name="quyen_han" value="<?= $user->getRole() ?>">
+                    <select class="form-select" name="quyen_han">
+                        <option <?= $user->getRole() == 'admin' ? 'Selected' : '' ?> value="admin">admin</option>
+                        <option <?= $user->getRole() == 'tacgia' ? 'Selected' : '' ?> value="tacgia">tacgia</option>
+                    </select>
                 </div>
 
                 <div class="form-group  float-end ">
