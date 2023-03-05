@@ -12,7 +12,7 @@ include("views/includes/header.php");
                 </div>
                 <div class="form-group  float-end ">
                     <input type="submit" value="Thêm" class="btn btn-success">
-                    <a href="category.php" class="btn btn-warning ">Quay lại</a>
+                    <a href="index.php?controller=author&action=index" class="btn btn-warning ">Quay lại</a>
                 </div>
             </form>
         </div>
