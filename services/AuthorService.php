@@ -1,5 +1,4 @@
 <?php
-include("configs/DBConnection.php");
 include("models/Author.php");
 class AuthorService
 {

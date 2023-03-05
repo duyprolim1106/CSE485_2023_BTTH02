@@ -1,19 +1,25 @@
 <?php
+include("configs/DBConnection.php");
 include("services/ArticleService.php");
 include("services/AuthorService.php");
+include("services/CategoryService.php");
 class ArticleController
 {
     public function index() {
         if (isset($_GET['act'])) {
             if ($_GET['act'] == 'edit') {
                 $articleService = new ArticleService();
+                $authorService = new AuthorService();
+                $categoryService = new CategoryService();
                 $article = $articleService->getDetailArticle('$ma_bviet');
-                    $authorService = new AuthorService();
-                    $authorList = $authorService->getAuthors();
+                $authorList = $authorService->getAuthors();
+                $categoryList = $categoryService->getCategories();
                 include("views/article/edit_article.php");
             } else if ($_GET['act'] == 'add') {
                 $authorService = new AuthorService();
+                $categoryService = new CategoryService();
                 $authorList = $authorService->getAuthors();
+                $categoryList = $categoryService->getCategories();
                 include("views/article/add_article.php");
             }
         } else {
@@ -42,8 +48,7 @@ class ArticleController
     {
         $articleService = new ArticleService();
         if ($articleService->addArticle()) {
-            echo 'add';
-            // self::index();
+            self::index();
         }
     }
 }
