@@ -2,12 +2,14 @@
 include("services/UserService.php");
 class UserController {
     public function index() {
-        if ($_GET['act'] == 'edit') {
-            $userService = new UserService();
-            $user = $userService->getUserById();
-            include("views/user/edit_user.php");
-        } else if ($_GET['act'] == 'add') {
-            include("views/user/add_user.php");
+        if (isset($_GET['act'])) {
+            if ($_GET['act'] == 'edit') {
+                $userService = new UserService();
+                $user = $userService->getUserById();
+                include("views/user/edit_user.php");
+            } else if ($_GET['act'] == 'add') {
+                include("views/user/add_user.php");
+            }
         } else {
             $userService = new UserService();
             $userList = $userService->getUsers();
