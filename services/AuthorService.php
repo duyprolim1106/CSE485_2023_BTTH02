@@ -1,5 +1,4 @@
 <?php
-require_once("configs/DBConnection.php");
 include("models/Author.php");
 class AuthorService
 {
@@ -39,6 +38,7 @@ class AuthorService
             $author = new Author($row['ma_tgia'], $row['ten_tgia']);
             return $author;
         }
+        $dbConn->closeConnection();
     }
     public function addAuthor()
     {

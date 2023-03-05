@@ -1,9 +1,8 @@
 <?php
-require_once("configs/DBConnection.php");
 include("models/Category.php");
 class CategoryService
 {
-    public function getCategorys()
+    public function getCategories()
     {
         $dbConn = new DbConnection();
         $conn = $dbConn->getConnection();

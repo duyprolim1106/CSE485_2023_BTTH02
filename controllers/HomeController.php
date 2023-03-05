@@ -1,4 +1,5 @@
 <?php
+include("configs/DBConnection.php");
 require("services/ArticleService.php");
 class HomeController {
     public function index() {
