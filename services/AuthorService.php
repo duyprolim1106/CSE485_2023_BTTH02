@@ -1,5 +1,4 @@
 <?php
-include("configs/DBConnection.php");
 include("models/Author.php");
 class AuthorService
 {
@@ -40,7 +39,6 @@ class AuthorService
             return $author;
         }
         $dbConn->closeConnection();
-        return $authors;
     }
     public function addAuthor()
     {
