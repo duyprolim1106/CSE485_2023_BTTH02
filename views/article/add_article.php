@@ -20,7 +20,15 @@ include("views/includes/header_admin.php");
                 </div>
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatName">Tên Thể Loại</span>
-                    <input type="text" class="form-control" name="ma_tloai">
+                    <select class="form-select" name="ma_tloai">
+                        <?php
+                            foreach($categoryList as $category) {
+                        ?>
+                        <option value="<?= $category->getMaTloai() ?>"><?= $category->getTenTloai() ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatName">Tóm tắt</span>
@@ -40,12 +48,11 @@ include("views/includes/header_admin.php");
                         <?php
                         }
                         ?>
-
                     </select>
                 </div>
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatName">Hình ảnh</span>
-                    <input type="file" name="hinhanh" id="file-upload">
+                    <input type="file" name="file-upload" id="file-upload">
                 </div>
 
                 <div class="form-group  float-end ">

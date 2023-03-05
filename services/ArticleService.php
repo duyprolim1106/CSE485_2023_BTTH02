@@ -1,5 +1,4 @@
 <?php
-include("configs/DBConnection.php");
 include("models/Article.php");
 
 class ArticleService
@@ -96,32 +95,34 @@ class ArticleService
         $conn = $dbConn->getConnection();
 
         if (isset( $_POST['tieude']) &&
-            isset($_POST['ten_bhat']) && isset($_POST['ten_tloai'])
-            && isset($_POST['tomtat']) && isset($_POST['noidung']) && isset($_POST['ten_tgia'])
-            //  && isset($_POST['hinhanh'])
+            isset($_POST['ten_bhat']) && isset($_POST['ma_tloai'])
+            && isset($_POST['tomtat']) && isset($_POST['noidung'])
+            && isset($_POST['ma_tgia'])
+            && isset($_POST['file-upload'])
         ) {
             $tieude = $_POST['tieude'];
             $tenbhat = $_POST['ten_bhat'];
-            $tentheloai = $_POST['ten_tloai'];
+            $matheloai = $_POST['ma_tloai'];
             $tomtat = $_POST['tomtat'];
             $noidung = $_POST['noidung'];
-            $tentacgia = $_POST['ten_tgia'];
-            $hinhanh = $_POST['hinhanh'];
+            $matacgia = $_POST['ma_tgia'];
+            $hinhanh = $_POST['file-upload'];
         } else {
             return false;
         }
 
-        $sql = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ten_tgia, hinhanh)
-         VALUES (?,?,?,?,?,?,?)"; 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(1, $_POST['tieude']);
-        $stmt->bindParam(2, $_POST['ten_bhat']);
-        $stmt->bindParam(3, $_POST['ma_tloai']);
-        $stmt->bindParam(4, $_POST['tomtat']);
-        $stmt->bindParam(5, $_POST['noidung']);
-        $stmt->bindParam(6, $_POST['ten_tgia']);
-        // $stmt->bindParam(7, CURDATE());
-        $stmt->bindParam(7, $_POST['hinhanh']);
+        // $sql = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh)
+        //  VALUES (?,?,?,?,?,CURDATE(),?)"; 
+        $sql_test = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh)
+         VALUES ('$tieude','$tenbhat','$matheloai','$tomtat','$noidung', '$matacgia',CURDATE(),'$hinhanh')"; 
+        $stmt = $conn->prepare($sql_test);
+        // $stmt->bindParam(1, $tieude);
+        // $stmt->bindParam(2, $tenbhat);
+        // $stmt->bindParam(3, $matheloai);
+        // $stmt->bindParam(4, $tomtat);
+        // $stmt->bindParam(5, $noidung);
+        // $stmt->bindParam(6, $matacgia);
+        // $stmt->bindParam(7, $hinhanh);
         if ($stmt->execute()) {
             return true;
         } else {

@@ -1,4 +1,5 @@
 <?php
+include("configs/DBConnection.php");
 include("services/CategoryService.php");
 class CategoryController{
     public function index()
