@@ -1,5 +1,5 @@
 <?php
-require("configs/DBConnection.php");
+require_once("configs/DBConnection.php");
 include("models/User.php");
 
 class UserService
