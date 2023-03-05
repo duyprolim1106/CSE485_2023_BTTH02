@@ -15,7 +15,6 @@
 // B1: Bắt giá trị controller và action
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
-$ma_tgia       = isset($_GET['ma_tgia'])?       $_GET['ma_tgia'] : null;
 
 // B2: Chuẩn hoá controller
 $controller = ucfirst($controller);
@@ -31,4 +30,4 @@ require_once($controllerPath);
 
 // B4. Tạo đối tượng và gọi hàm của Controller
 $myObj = new $controller();  //controller=home > new HomeController()
-$myObj->$action($ma_tgia); //action=index > index()
+$myObj->$action(); //action=index > index()

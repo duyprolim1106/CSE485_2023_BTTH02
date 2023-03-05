@@ -3,62 +3,98 @@ include("configs/DBConnection.php");
 include("models/Author.php");
 class AuthorService
 {
-
-    public function getAllAuthors()
+    public function getAuthors()
     {
         $dbConn = new DbConnection();
         $conn = $dbConn->getConnection();
 
         $sql = "SELECT * 
             FROM tacgia";
-        $stmt = $conn->query($sql);
+        try {
+            $stmt = $conn->query($sql);
+            $authors = [];
+            while ($row = $stmt->fetch()) {
+                $author = new Author($row['ma_tgia'], $row['ten_tgia']);
+                array_push($authors, $author);
+            }
+            return $authors;
+        } catch (PDOException $e) {
+            // Handle the exception here, e.g. log the error message
+            return false;
+        }
+    }
 
-        $authors = [];
-        while ($row = $stmt->fetch()) {
+    public function getAuthorById()
+    {
+        $dbConn = new DBConnection();
+        $conn = $dbConn->getConnection();
+
+        $sql = "SELECT * FROM tacgia WHERE ma_tgia =?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1, $_GET['id']);
+        $stmt->execute();
+
+        $row = $stmt->fetch();
+        if ($row) {
             $author = new Author($row['ma_tgia'], $row['ten_tgia']);
-            array_push($authors, $author);
+            return $author;
         }
-        return $authors;
     }
-
-    public function getMaTgia($ma_tgia)
+    public function addAuthor()
     {
-        $dbConn = new DbConnection();
+        $dbConn = new DBConnection();
         $conn = $dbConn->getConnection();
 
-        $sql = "SELECT * 
-                FROM tacgia
-                Where ma_tgia = '" . $ma_tgia . "'";
-        $stmt = $conn->query($sql);
-        $edit_authors = [];
-        while ($row = $stmt->fetch()) {
-            $edit_author = new Author($row['ma_tgia'], $row['ten_tgia']);
-            array_push($edit_authors, $edit_author);
+        if (isset($_POST['ten_tgia'])) {
+            $ten_tgia = $_POST['ten_tgia'];
+        } else {
+            return false;
         }
-        return $edit_authors;
+
+        $sql = "INSERT INTO tacgia ( ten_tgia) VALUES (?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1, $ten_tgia);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function add_author($ten_tgia)
+    public function updateAuthor()
     {
-        $dbConn = new DbConnection();
-        $conn = $dbConn->getConnection();
-    }
-    public function update_author($ma_tgia, $ten_tgia)
-    {
-        $dbConn = new DbConnection();
+        $dbConn = new DBConnection();
         $conn = $dbConn->getConnection();
 
-
-        $sql = "Update tacgia SET `ten_tgia` = '$ten_tgia' WHERE `ma_tgia` = '$ma_tgia'";
-        $stmt = $conn->query($sql);
-
-        $sql = "SELECT * From tacgia ";
-        $stmt = $conn->query($sql);
-        $update_authors = [];
-        while ($row = $stmt->fetch()) {
-            $update_author = new Author($row['ma_tgia'], $row['ten_tgia']);
-            array_push($update_authors, $update_author);
+        $sql = "UPDATE tacgia SET ten_tgia =?WHERE ma_tgia =?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1, $_POST['ten_tgia']);
+        $stmt->bindParam(2, $_POST['ma_tgia']);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
         }
-        return $update_authors;
+    }
+    public function deleteAuthor()
+    {
+        $dbConn = new DBConnection();
+        $conn = $dbConn->getConnection();
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        } else {
+            return false;
+        }
+
+        $sql = "DELETE FROM tacgia WHERE ma_tgia = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1, $id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
