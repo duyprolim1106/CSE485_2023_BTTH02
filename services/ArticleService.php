@@ -1,6 +1,5 @@
 <?php
 include("models/Article.php");
-
 class ArticleService
 {
     public function getAllArticles()
