@@ -13,4 +13,7 @@
         public function getConnection() {
             return $this->conn;
         }
+        public function closeConnection() {
+            return self::$conn = null;
+        }
     }

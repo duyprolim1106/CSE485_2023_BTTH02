@@ -18,6 +18,7 @@ class AuthorService
             $author = new Author($row['ma_tgia'], $row['ten_tgia']);
             array_push($authors, $author);
         }
+        $dbConn->closeConnection();
         return $authors;
     }
 
