@@ -5,13 +5,14 @@ include("services/AuthorService.php");
 include("services/CategoryService.php");
 class ArticleController
 {
-    public function index() {
+    public function index()
+    {
         if (isset($_GET['act'])) {
             if ($_GET['act'] == 'edit') {
                 $articleService = new ArticleService();
-                $authorService = new AuthorService();
                 $categoryService = new CategoryService();
-                $article = $articleService->getDetailArticle('$ma_bviet');
+                $authorService = new AuthorService();
+                $article = $articleService->getArticleById();
                 $authorList = $authorService->getAuthors();
                 $categoryList = $categoryService->getCategories();
                 include("views/article/edit_article.php");
@@ -24,30 +25,19 @@ class ArticleController
             }
         } else {
             $articleService = new ArticleService();
-            $articleList = $articleService->getAllArticles();
+            $articleList = $articleService->getDetailArticle();
             include("views/article/index.php");
         }
     }
-
-    public function updateArticle()
-    {
-        $articleService = new ArticleService();
-        if ($articleService->updateArticle()) {
-            self::index();
-        }
-    }
-
-    public function deleteArticle()
-    {
-        $articleService = new ArticleService();
-        if ($articleService->deleteArticle()) {
-            self::index();
-        }
-    }
-    public function addArticle()
-    {
+    public function addArticle(){
         $articleService = new ArticleService();
         if ($articleService->addArticle()) {
+            self::index();
+        }
+    }
+    public function deleteArticle() {
+        $userService = new ArticleService();
+        if ($userService->deleteArticle()) {
             self::index();
         }
     }

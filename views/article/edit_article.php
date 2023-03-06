@@ -7,7 +7,7 @@ include("views/includes/header_admin.php");
         <div class="col-sm">
             <h3 class="text-center text-uppercase fw-bold">Sửa thông tin bài viết</h3>
             <form action="index.php?controller=article&action=updateArticle" method="post">
-                <input type="text" class="form-control" name="ma_bviet">
+                <input type="text" class="form-control" hidden name="ma_bviet">
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatId">Tiêu đề</span>
                     <input type="text" class="form-control" name="tieude" readonly value="<?= $article->getTieuDe() ?>">
@@ -19,7 +19,15 @@ include("views/includes/header_admin.php");
                 </div>
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatId">Thể loại</span>
-                    <input type="text" class="form-control" name="ma_tloai" readonly value="<?= $article->getTenTloai() ?>">
+                    <select class="form-select" name="ma_tloai">
+                    <?php
+                    foreach ($categoryList as $category) {
+                    ?>
+                        <option <?= $article->getTenTloai() == $category->getMaTloai() ? 'Selected' : '' ?> value="<?= $category->getMaTloai() ?>"><?= $category->getTenTloai() ?></option>
+                    <?php
+                    }
+                    ?>
+                    </select>
                 </div>
                 
                 <div class="input-group mt-3 mb-3">
@@ -33,8 +41,15 @@ include("views/includes/header_admin.php");
                 </div>
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatName">Tên Tác Giả</span>
-                    <input type="text" class="form-control" name="ten_tgia" readonly value="<?= $article->getTenTgia() ?>">
-                </div>
+                    <select class="form-select" name="ma_tgia">
+                    <?php
+                    foreach ($authorList as $category) {
+                    ?>
+                        <option <?= $article->getTenTgia() == $category->getMaTgia() ? 'Selected' : '' ?> value="<?= $category->getMaTgia() ?>"><?= $category->getTenTgia() ?></option>
+                    <?php
+                    }
+                    ?>
+                    </select>
 
                 <div class="input-group mt-3 mb-3">
                     <span style="padding: 0px 20px 0px 20px" class="input-group-text" id="lblCatName">Ngày viết</span>

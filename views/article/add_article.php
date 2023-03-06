@@ -8,7 +8,7 @@ include("views/includes/header_admin.php");
     <div class="row">
         <div class="col-sm">
             <h3 class="text-center text-uppercase fw-bold">Thêm mới bài viết</h3>
-            <form action="index.php?controller=article&action=addArticle" method="post">
+            <form action="index.php?controller=article&action=addArticle" enctype="multipart/form-data" method="post">
 
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatName">Tên tiêu đề</span>

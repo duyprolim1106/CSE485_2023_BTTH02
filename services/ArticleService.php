@@ -20,7 +20,7 @@ class ArticleService
         $dbConn->closeConnection();
     }
 
-    public function getDetailArticle($ma_bviet)
+    public function getDetailArticle()
     {
         $dbConn = new DBConnection();
         $conn = $dbConn->getConnection();
@@ -28,8 +28,7 @@ class ArticleService
         $sql = "SELECT *
         FROM baiviet
         INNER JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia
-        INNER JOIN theloai ON theloai.ma_tloai = baiviet.ma_tloai
-        WHERE ma_bviet = '" . $ma_bviet . "'";
+        INNER JOIN theloai ON theloai.ma_tloai = baiviet.ma_tloai";
         $stmt = $conn->query($sql);
 
         $detailArticles = [];
@@ -41,13 +40,34 @@ class ArticleService
         return $detailArticles;
     }
     
+    public function getArticleById()
+    {
+        $dbConn = new DBConnection();
+        $conn = $dbConn->getConnection();
+
+        if (isset($_GET['id'])) {
+            $ma_bviet = $_GET['id'];
+        }
+
+        $sql = "SELECT *
+        FROM baiviet
+        where ma_bviet = $ma_bviet";
+        $stmt = $conn->query($sql);
+
+        $row = $stmt->fetch();
+        if ($row) {
+            $article = new Article($row['ma_bviet'], $row['tieude'], $row['ten_bhat'], $row['ma_tloai'], $row['tomtat'], $row['noidung'], $row['ma_tgia'], $row['ngayviet'], $row['hinhanh']);
+            return $article;
+        }
+    }
+    
     public function updateArticle()
     {
         $dbConn = new DBConnection();
         $conn = $dbConn->getConnection();
 
         $sql = "UPDATE baiviet SET tieude = ?, ten_bhat = ?, ma_tloai = ? , tomtat = ?,
-        noidung = ? , ten_tgia = ? , ngayviet = ? , hinhanh = ?
+        noidung = ? , ma_tgia = ? , ngayviet = ? , hinhanh = ?
    WHERE ma_bviet = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(1, $_POST['tieude']);
@@ -55,7 +75,7 @@ class ArticleService
         $stmt->bindParam(3, $_POST['ma_tloai']);
         $stmt->bindParam(4, $_POST['tomtat']);
         $stmt->bindParam(5, $_POST['noidung']);
-        $stmt->bindParam(6, $_POST['ten_tgia']);
+        $stmt->bindParam(6, $_POST['ma_tgia']);
         $stmt->bindParam(7, $_POST['ngayviet']);
         $stmt->bindParam(8, $_POST['hinhanh']);
         if ($stmt->execute()) {
@@ -88,44 +108,28 @@ class ArticleService
         }
     }
 
-    public function addArticle()
-    {
+    public function addArticle(){
+
         $dbConn = new DBConnection();
         $conn = $dbConn->getConnection();
 
-        if (isset( $_POST['tieude']) &&
-            isset($_POST['ten_bhat']) && isset($_POST['ma_tloai'])
-            && isset($_POST['tomtat']) && isset($_POST['noidung'])
-            && isset($_POST['ma_tgia'])
-            && isset($_POST['file-upload'])
-        ) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tieude = $_POST['tieude'];
             $tenbhat = $_POST['ten_bhat'];
             $matheloai = $_POST['ma_tloai'];
             $tomtat = $_POST['tomtat'];
             $noidung = $_POST['noidung'];
             $matacgia = $_POST['ma_tgia'];
-            $hinhanh = $_POST['file-upload'];
-        } else {
-            return false;
-        }
+            $link = $_FILES['file-upload']['name'];
+            $hinhanh = $_FILES['file-upload']['name'];
 
-        // $sql = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh)
-        //  VALUES (?,?,?,?,?,CURDATE(),?)"; 
-        $sql_test = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh)
-         VALUES ('$tieude','$tenbhat','$matheloai','$tomtat','$noidung', '$matacgia',CURDATE(),'$hinhanh')"; 
-        $stmt = $conn->prepare($sql_test);
-        // $stmt->bindParam(1, $tieude);
-        // $stmt->bindParam(2, $tenbhat);
-        // $stmt->bindParam(3, $matheloai);
-        // $stmt->bindParam(4, $tomtat);
-        // $stmt->bindParam(5, $noidung);
-        // $stmt->bindParam(6, $matacgia);
-        // $stmt->bindParam(7, $hinhanh);
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
+            $sql = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh)
+            VALUES ('$tieude','$tenbhat','$matheloai','$tomtat','$noidung', '$matacgia',CURDATE(),'$hinhanh')"; 
+            $stmt = $conn->query($sql);
+            move_uploaded_file($_FILES['file-upload']['tmp_name'], $link);
+            if ($stmt) {
+                return true;
+            } else { return false; }
         }
     }
 }

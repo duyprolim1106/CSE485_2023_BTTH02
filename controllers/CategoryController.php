@@ -14,7 +14,7 @@ class CategoryController{
             }
         } else {
             $categoryService = new CategoryService();
-            $categoryList = $categoryService->getCategorys();
+            $categoryList = $categoryService->getCategories();
             include("views/category/index.php");
         }
     }
